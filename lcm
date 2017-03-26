@@ -1,0 +1,25 @@
+import java.io.*;
+import java.util.*;
+import java.text.*;
+import java.math.*;
+import java.util.regex.*;
+
+public class Solution {
+    static long lcm(long a, long b){
+        long res = 0;
+        for(long i = 1; i <= b; i++) 
+            if(i*a % b == 0)
+             {
+                res =  Math.abs(i*a);
+                break;
+            }
+        return res;
+    }
+    public static void main(String args[] ) throws Exception {
+        Scanner scan =new Scanner(System.in);
+        long a = scan.nextInt();
+        long b= scan.nextInt();
+        System.out.println(lcm(a,b));
+        /* Enter your code here. Read input from STDIN. Print output to STDOUT */
+    }
+}

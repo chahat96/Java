@@ -1,0 +1,70 @@
+import java.io.*;
+import java.util.*;
+import java.text.*;
+import java.math.*;
+import java.util.regex.*;
+
+public class Solution {
+
+/*
+ * Complete the function below.
+ */
+
+    static int[] cutSticks(int[] lengths) {
+    ArrayList<Integer> res = new ArrayList<Integer>();
+        int length = lengths.length;
+        Arrays.sort(lengths);
+        int minLength = lengths[0];
+        int flag = 0;
+        while(flag != length){
+            int count = 0;
+            for(int i = 0; i < length; i++){
+                if(lengths[i] > 0){
+                    count++;
+                    int l = lengths[i] - minLength;
+                    if(l == 0) flag++;
+                    if(l <= 0) lengths[i] = 0;
+                    else lengths[i] = l;
+                }
+            }
+            res.add(count);
+            Arrays.sort(lengths);
+            for(int m = 0; m < length; m++){
+                if(lengths[m] != 0){
+                    minLength = lengths[m];
+                    break;
+                }
+            }
+        }
+        
+        int []k = new int[res.size()];
+        for(int i = 0; i < res.size(); i++){
+            k[i] = res.get(i);
+        }
+    return k;
+    }
+
+    public static void main(String[] args) throws IOException{
+        Scanner in = new Scanner(System.in);
+        final String fileName = System.getenv("OUTPUT_PATH");
+        BufferedWriter bw = new BufferedWriter(new FileWriter(fileName));
+        int[] res;
+        
+        int _lengths_size = 0;
+        _lengths_size = Integer.parseInt(in.nextLine().trim());
+        int[] _lengths = new int[_lengths_size];
+        int _lengths_item;
+        for(int _lengths_i = 0; _lengths_i < _lengths_size; _lengths_i++) {
+            _lengths_item = Integer.parseInt(in.nextLine().trim());
+            _lengths[_lengths_i] = _lengths_item;
+        }
+        
+        res = cutSticks(_lengths);
+        for(int res_i=0; res_i < res.length; res_i++) {
+            bw.write(String.valueOf(res[res_i]));
+            bw.newLine();
+        }
+        
+        bw.close();
+    }
+}
